@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>首页</title>
+		<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		 crossorigin="anonymous">
+		<!-- 引入jq -->
+		<script src="./js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- !-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		 crossorigin="anonymous"></script>
+
+		<!-- 引入echarts -->
+		<script src="https://cdn.bootcss.com/echarts/4.3.0-rc.2/echarts-en.common.min.js" type="text/javascript"></script>
+		<style type="text/css">
+			.row {
+				padding: 30px 20px;
+			}
+
+			.head-box {
+				height: 168px;
+				position: relative;
+				padding: 0;
+				margin-bottom: 20px;
+			}
+
+			.head-img-box>img {
+				height: 100%;
+				width: 97%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				z-index: -11;
+			}
+
+			.head-content {
+				padding-top: 48px;
+				padding-left: 48px;
+				color: #fff;
+			}
+
+			.head-num {
+				font-size: 40px;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<!-- 统计表 -->
+			<div class="row">
+				<div class="col-sm-6 col-md-4 head-box">
+					<div class="head-img-box">
+						<img src="./imgs/advert.png">
+					</div>
+					<div class="head-content">
+						<div class="head-num">
+							158
+						</div>
+						<div class="head-tip">
+							累计用户 Accumulative user
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4 head-box">
+					<div class="head-img-box">
+						<img src="./imgs/advert.png">
+					</div>
+					<div class="head-content">
+						<div class="head-num">
+							0
+						</div>
+						<div class="head-tip">
+							今日新增 Add today
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4 head-box">
+					<div class="head-img-box">
+						<img src="./imgs/advert.png">
+					</div>
+					<div class="head-content">
+						<div class="head-num">
+							0
+						</div>
+						<div class="head-tip">
+							今日活跃 Active today
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="doubleLine" class="col-lg-12 col-md-12 col-sm-12" style="height: 450px;">
+			</div>
+		</div>
+		<script type="text/javascript">
+			/**
+			 * 画双折线图
+			 * @param container 容器
+			 * @param titleName 标题
+			 * @param xData x轴数据
+			 * @param seriesNameOne 第一条折线图表名称
+			 * @param seriesDataOne 第一条折线图表数据
+			 * @param seriesNameTwo 第二条折线图表名称
+			 * @param seriesDataTwo 第二条折线图表数据
+			 */
+			function drawDoubleLine(container, titleName, xData, seriesNameOne, seriesDataOne, seriesNameTwo, seriesDataTwo) {
+				var doubleLine = echarts.init(document.getElementById(container));
+				doubleLineOption = {
+					tooltip: {
+						trigger: 'axis',
+						//指示器
+						axisPointer: {
+							type: 'line',
+							lineStyle: {
+								color: '#7171C6'
+							}
+						},
+						padding: [5, 10],
+						formatter(params) {
+							console.log(params)
+					        let newuser=params[0];
+							let activeuser=params[1];
+							//x轴名称
+							let name=newuser.name;
+							let newseriesName=newuser.seriesName+"(个)";
+							let newvalue=newuser.value;
+							let activeName=activeuser.seriesName+"(个)";
+							let activevalue=activeuser.value;
+							let space="&nbsp;&nbsp;&nbsp;&nbsp";
+							return  name  +'<br />' + newseriesName +space+newvalue+ '<br />' + activeName+space+activevalue
+						}
+					},
+					legend: {
+						data: ['新增用户(个)', '活跃用户(个)']
+					},
+					toolbox: { //可视化的工具箱
+						show: true,
+						feature: {
+							saveAsImage: { //保存图片
+								show: true,
+								title: '保存为图片',
+								iconStyle: {
+									borderColor: "#26c77e"
+								}
+							}
+						}
+					},
+					// //图形位置
+					grid: {
+						left: '4%',
+						right: '6%',
+						bottom: '4%',
+						top: 50,
+						containLabel: true
+					},
+					xAxis: [{
+						type: 'category',
+						//x轴坐标点开始与结束点位置都不在最边缘
+						boundaryGap: false,
+						axisLine: {
+							show: true,
+							//x轴线样式
+							lineStyle: {
+								color: '#17273B',
+								width: 1,
+								type: 'solid'
+							}
+						},
+						//x轴字体设置
+						axisLabel: {
+							show: true,
+							fontSize: 12,
+							color: 'black'
+						},
+						data: xData
+					}],
+					yAxis: [{
+						type: 'value',
+						//y轴字体设置
+						axisLabel: {
+							show: true,
+							color: 'black',
+							fontSize: 12,
+							// formatter: function(value) {
+							// 	if (value >= 1000) {
+							// 		value = value / 1000 + 'k';
+							// 	}
+							// 	return value;
+							// }
+						},
+						//y轴线设置显示
+						axisLine: {
+							show: true,
+							lineStyle:{
+								color:"#ffffff"
+							}
+						},
+						//与x轴平行的线样式
+						splitLine: {
+							show: true,
+							lineStyle: {
+								color: '#17273B',
+								width: 1,
+								type: 'dashed',
+							}
+						}
+					}],
+					series: [{
+						name: seriesNameOne,
+						type: 'line',
+						smooth: true,
+						lineStyle: {
+							color: {
+								type: 'linear',
+								x: 0,
+								y: 0,
+								x2: 0,
+								y2: 1,
+								colorStops: [{
+									offset: 0,
+									color: '#cbeee7' // 0% 处的颜色
+								}, {
+									offset: 1,
+									color: '#cbeee7' // 100% 处的颜色
+								}],
+								globalCoord: false
+							},
+							width: 2,
+							// type: 'solid',
+						},
+						//折线连接点样式
+						itemStyle: {
+							color: '#4bc3ad'
+						},
+						//折线堆积区域样式
+						areaStyle: {
+							color: '#cbeee7'
+						},
+						data: seriesDataOne
+					}, {
+						name: seriesNameTwo,
+						type: 'line',
+						smooth: true,
+						lineStyle: {
+							color: {
+								type: 'linear',
+								x: 0,
+								y: 0,
+								x2: 0,
+								y2: 1,
+								colorStops: [{
+									offset: 0,
+									color: '#cbeee7' // 0% 处的颜色
+								}, {
+									offset: 1,
+									color: '#cbeee7' // 100% 处的颜色
+								}],
+								globalCoord: false
+							},
+							width: 2,
+							type: 'solid',
+						},
+						//折线连接点样式
+						itemStyle: {
+							color: '#4c81e2'
+						},
+						//折线堆积区域样式
+						areaStyle: {
+							color: '#cbeee7'
+						},
+						data: seriesDataTwo
+					}]
+				};
+				doubleLine.setOption(doubleLineOption);
+			}
+			drawDoubleLine('doubleLine', '', ['一季度', '二季度', '三季度', '四季度'], '新增用户', [2120, 4232, 4471, 983], '活跃用户', [0,
+				0, 0, 0
+			]);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		.item {
+			padding-bottom: 20px;
+		}
+
+		.small_title {
+			font-weight: 700;
+			background-color: #e2dbcf;
+			height: 60px;
+			padding-left: 23px;
+			font-size: 20px;
+			line-height: 60px;
+			margin-bottom: 40px;
+		}
+
+		.contain_upload {
+			color: #666;
+			overflow: hidden;
+		}
+
+		.tip {
+			padding-left: 30px;
+		}
+
+		.img_contain {
+			padding: 30px;
+		}
+
+		.img_lists {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			float: left;
+			text-align: center;
+		}
+
+		.img_list {
+			width: 150px;
+			height: 150px;
+			float: left;
+			margin-right: 17px;
+			margin-left: 17px;
+			margin-bottom: 30px;
+			position: relative;
+			border: 2px solid #ccc;
+			border-radius: 5px;
+			box-sizing: border-box;
+		}
+
+		.img {
+			width: 150px;
+			height: 150px;
+		}
+
+		.del_img {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			display: inline-block;
+			width: 146px;
+			height: 30px;
+			background-color: rgba(0, 0, 0, .2);
+			line-height: 30px;
+			color: #fff;
+		}
+
+		.img_upload {
+			width: 150px;
+			height: 150px;
+			box-sizing: border-box;
+			float: left;
+			border: 2px dashed #ccc;
+			border-radius: 5px;
+			text-align: center;
+			background:  no-repeat center center;
+			overflow: hidden;
+		}
+
+		.file_img {
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			width: 100%;
+
+		}
+	</style>
+	<body>
+
+		<div class="item">
+			<div class="title small_title">上传项目图片</div>
+			<div class="contain_upload">
+				<div class="tip">包括但不限于：项目效果图、立面图、鸟瞰图、位置图、区位图、交通网络设施图、周边配套图、标识形象图等等</div>
+				<div class="tip">仅限jpg|png|jpeg|gif格式，文件大小不超过10M</div>
+				<div class="img_contain">
+					<ul class="img_lists">
+						<!--<li class="img_list" >
+		                    <img  class="img" src="/public/pc/images/zzlwang.ico" alt="">
+		                    <span class="del_img">删除</span>
+		                </li>
+		                <li class="img_list" >
+		                    <img  class="img" src="/public/pc/images/zzlwang.ico" alt="">
+		                    <span class="del_img">删除</span>
+		                </li>-->
+
+					</ul>
+					<div class="img_upload">
+						<input type="file" name="file_img" id="file_img" class="file_img" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</body>
+</html>
